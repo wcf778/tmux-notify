@@ -14,7 +14,19 @@ Intelligent notification tracking for opencode agents. Works with or without tmu
 - **macOS notifications** - System notifications via osascript with project name
 - **Log rotation** - Automatic rotation at 1000 lines
 
-## Quick Start
+## Requirements
+
+- opencode with ES module support
+- Optional: tmux (for full tmux sidebar experience)
+- Optional: Ghostty (for native tab title support)
+- macOS: `osascript` for system notifications
+
+---
+
+## Choose Your Workflow
+
+<details open>
+<summary><strong>Workflow A: tmux Users (Full Experience)</strong></summary>
 
 ### With tmux (full experience)
 
@@ -31,6 +43,20 @@ source-file ~/.config/opencode/plugins/examples/tmux-bindings.conf
 ```
 
 Then in any tmux session, press `Prefix + M` to add a notification pane instantly.
+
+### Keybindings (tmux)
+
+| Key | Action |
+|-----|--------|
+| `Prefix + M` | Add notification pane to current window |
+| `Prefix + n` | Show notifications popup |
+| `Prefix + N` | Clear notification history |
+| `Prefix + m` | Toggle to notification pane |
+
+</details>
+
+<details>
+<summary><strong>Workflow B: Ghostty/Terminal Only (No tmux)</strong></summary>
 
 ### Without tmux (Ghostty/iTerm/any terminal)
 
@@ -52,6 +78,46 @@ The notification viewer shows:
 - Terminal pane with live notification log
 - Ghostty tab titles (if using Ghostty)
 
+### Ghostty Keybinding (optional)
+
+Add to `~/.config/ghostty/config`:
+```
+bind = cmd+shift+n !exec ~/.config/opencode/plugins/examples/notification-viewer.sh
+```
+
+### Keybindings (Ghostty)
+
+| Key | Action |
+|-----|--------|
+| `Cmd+Shift+n` | Toggle notification pane (after adding config above) |
+
+</details>
+
+---
+
+## Installation
+
+### Quick Install
+
+1. Copy `tmux-notify.js` to your plugins directory:
+   ```bash
+   cp ~/.config/opencode/plugins/tmux-notify.js ~/.config/opencode/plugins/
+   ```
+
+2. That's it! The plugin auto-loads when opencode starts.
+
+### Full Setup (tmux users)
+
+```bash
+# 1. Add to ~/.zshrc
+alias dev-workspace='/path/to/dev-workspace'
+
+# 2. Create tmux session with notification sidebar
+dev-workspace ~/Projects/myapp
+```
+
+---
+
 ## Notification Viewer
 
 The `notification-viewer.sh` script displays notifications in any terminal pane:
@@ -68,6 +134,8 @@ notification-viewer.sh --latest
 ```
 
 Press `Ctrl+C` to exit, or create `/tmp/notification-viewer-exit` to gracefully exit.
+
+---
 
 ## Architecture
 
@@ -97,6 +165,8 @@ Press `Ctrl+C` to exit, or create `/tmp/notification-viewer-exit` to gracefully 
 | Notification log | ✅ | ✅ | ✅ |
 | Sidebar pane | ✅ | ⚠️ Split + manual | ⚠️ Split + manual |
 
+---
+
 ## Output Format
 
 ```
@@ -117,6 +187,8 @@ Press `Ctrl+C` to exit, or create `/tmp/notification-viewer-exit` to gracefully 
 | Summary | White | `2 questions` |
 | Metadata | Gray | `46.1k tok · 90 tools · 2m 3s` |
 
+---
+
 ## Status Emojis
 
 | Emoji | Status | Meaning |
@@ -127,6 +199,8 @@ Press `Ctrl+C` to exit, or create `/tmp/notification-viewer-exit` to gracefully 
 | ⏳ | waiting | Waiting for user input |
 | 💤 | paused | Session paused |
 | 🛑 | stopped | Session stopped |
+
+---
 
 ## Agent Emojis
 
@@ -140,6 +214,8 @@ Press `Ctrl+C` to exit, or create `/tmp/notification-viewer-exit` to gracefully 
 | doc | 📝 |
 | default | 💼 |
 
+---
+
 ## Smart Summarization
 
 The plugin intelligently summarizes agent responses:
@@ -147,7 +223,7 @@ The plugin intelligently summarizes agent responses:
 - **Multi-choice questions** - Detects A/B/C/D options, shows "N choices"
 - **Question lists** - Shows "N questions" for numbered question lists
 - **Bullet lists** - Counts items in "- item" format
-- **Section headers** - Detects topics like "Code & Development" 
+- **Section headers** - Detects topics like "Code & Development"
 - **Action verbs** - Extracts "created: X", "fixed: Y", "added: Z"
 - **Acknowledgments** - Shortcuts "ok", "yes", "sure" responses
 - **Code responses** - Shows "provided code" when code blocks detected
@@ -163,11 +239,15 @@ The plugin intelligently summarizes agent responses:
 | `Here's what I found...` (short) | `Here's what I found...` |
 | `Sure, I'll help` | `ok` |
 
+---
+
 ## macOS Notifications
 
 When an agent completes or errors, a system notification is sent with:
 - **Title**: `directory · status-icon agent-icon summary`
 - **Body**: `tokens tok · tools tools · duration`
+
+---
 
 ## Project Structure
 
@@ -185,35 +265,12 @@ Each tmux window uses its own symlink:
 - `~/.tmux-notify-cwang41-w1.log`
 - `~/.tmux-notify-cwang-my_project7-w1.log`
 
-## Installation
-
-### Quick Install
-
-1. Copy `tmux-notify.js` to your plugins directory:
-   ```bash
-   cp ~/.config/opencode/plugins/tmux-notify.js ~/.config/opencode/plugins/
-   ```
-
-2. That's it! The plugin auto-loads when opencode starts.
-
-### Full Setup (tmux users)
-
-```bash
-# 1. Add to ~/.zshrc
-alias dev-workspace='/path/to/dev-workspace'
-
-# 2. Create tmux session with notification sidebar
-dev-workspace ~/Projects/myapp
-```
-
-### Ghostty Keybinding (optional, for non-tmux)
-
-Add to `~/.config/ghostty/config`:
-```
-bind = cmd+shift+n !exec ~/.config/opencode/plugins/examples/notification-viewer.sh
-```
+---
 
 ## tmux Sidebar Setup
+
+<details>
+<summary>Show tmux setup options</summary>
 
 ### Option 1: Add to existing tmux session (Recommended for existing users)
 
@@ -258,9 +315,14 @@ tmux-adopt-notify
 
 This splits your current window and adds a notification sidebar without disturbing your existing layout.
 
+</details>
+
+---
+
 ## Ghostty/Terminal Sidebar Setup
 
-Without tmux, use the notification viewer for a dedicated sidebar pane.
+<details>
+<summary>Show terminal setup options</summary>
 
 ### One-Key Setup (Recommended)
 
@@ -283,24 +345,11 @@ Then just press `Cmd+Shift+n` in Ghostty to toggle the notification pane.
 **iTerm2 / Any Terminal:**
 Same approach - split or new tab, run `notification-viewer.sh`, then use opencode in the other pane.
 
-## Keybindings Summary
+</details>
 
-### tmux Keybindings (after sourcing tmux-bindings.conf)
+---
 
-| Key | Action |
-|-----|--------|
-| `Prefix + M` | Add notification pane to current window |
-| `Prefix + n` | Show notifications popup |
-| `Prefix + N` | Clear notification history |
-| `Prefix + m` | Toggle to notification pane |
-
-### Ghostty Keybindings
-
-| Key | Action |
-|-----|--------|
-| `Cmd+Shift+n` | Toggle notification pane (after adding config) |
-
-### Clear Notifications
+## Clear Notifications
 
 ```bash
 # Clear notification history for current project
@@ -309,6 +358,8 @@ clear-notifications.sh
 # Or with specific project
 clear-notifications.sh ~/Projects/myapp
 ```
+
+---
 
 ## Configuration
 
@@ -327,12 +378,7 @@ Edit `tmux-notify.js` to adjust:
 - `SESSION_PALETTE` (line 55) - 12-color palette for directory badges
 - `STATUS_EMOJI` / `AGENT_EMOJI` - Emoji mappings
 
-## Requirements
-
-- opencode with ES module support
-- Optional: tmux (for full tmux sidebar experience)
-- Optional: Ghostty (for native tab title support)
-- macOS: osascript for system notifications
+---
 
 ## Events Tracked
 
@@ -345,6 +391,8 @@ Edit `tmux-notify.js` to adjust:
 | `session.status` (idle) | Shows ✅ done with smart summary |
 | `session.status` (error) | Shows 🚨 error notification |
 | `session.error` | Shows 🚨 error notification |
+
+---
 
 ## Debugging
 
