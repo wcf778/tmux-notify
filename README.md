@@ -24,26 +24,42 @@ Intelligent notification tracking for opencode agents. Works with or without tmu
 
 ---
 
-## Choose Your Workflow
+## Installation
+
+### One-line install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wcf778/tmux-notify/main/install.sh | bash
+```
+
+Or with wget:
+```bash
+wget -qO- https://raw.githubusercontent.com/wcf778/tmux-notify/main/install.sh | bash
+```
+
+### tmux setup (optional)
+
+After installation, add to `~/.tmux.conf`:
+```bash
+source-file ~/.config/opencode/plugins/tmux-notify/tmux-bindings.conf
+```
+
+---
+
+## Usage
 
 <details open>
 <summary><strong>Workflow A: tmux Users (Full Experience)</strong></summary>
 
-### With tmux (full experience)
+### Start dev-workspace
 
 ```bash
-# Start a tmux session with notification sidebar
 dev-workspace ~/Projects/myapp
 ```
 
-### tmux users: Add to existing session (one-line setup)
+### Add to existing tmux session
 
-Add ONE line to your `~/.tmux.conf`:
-```bash
-source-file ~/.config/opencode/plugins/examples/tmux-bindings.conf
-```
-
-Then in any tmux session, press `Prefix + M` to add a notification pane instantly.
+Press `Prefix + M` to add a notification pane instantly.
 
 ### Keybindings (tmux)
 
@@ -59,13 +75,15 @@ Then in any tmux session, press `Prefix + M` to add a notification pane instantl
 <details>
 <summary><strong>Workflow B: Ghostty/Terminal Only (No tmux)</strong></summary>
 
-### Without tmux (Ghostty/iTerm/any terminal)
+### Terminal 1: Run opencode
 
 ```bash
-# Terminal 1: Run opencode
 opencode
+```
 
-# Terminal 2: Run notification viewer (any terminal - Ghostty, iTerm, etc.)
+### Terminal 2: Run notification viewer
+
+```bash
 notification-viewer.sh ~/Projects/myapp
 ```
 
@@ -79,43 +97,18 @@ The notification viewer shows:
 - Terminal pane with live notification log
 - Ghostty tab titles (if using Ghostty)
 
-### Ghostty Keybinding (optional)
+### Keybindings (Ghostty)
+
+| Key | Action |
+|-----|--------|
+| `Cmd+Shift+n` | Toggle notification pane (after adding config) |
 
 Add to `~/.config/ghostty/config`:
 ```
 bind = cmd+shift+n !exec ~/.config/opencode/plugins/examples/notification-viewer.sh
 ```
 
-### Keybindings (Ghostty)
-
-| Key | Action |
-|-----|--------|
-| `Cmd+Shift+n` | Toggle notification pane (after adding config above) |
-
 </details>
-
----
-
-## Installation
-
-### Quick Install
-
-1. Copy `tmux-notify.js` to your plugins directory:
-   ```bash
-   cp ~/.config/opencode/plugins/tmux-notify.js ~/.config/opencode/plugins/
-   ```
-
-2. That's it! The plugin auto-loads when opencode starts.
-
-### Full Setup (tmux users)
-
-```bash
-# 1. Add to ~/.zshrc
-alias dev-workspace='/path/to/dev-workspace'
-
-# 2. Create tmux session with notification sidebar
-dev-workspace ~/Projects/myapp
-```
 
 ---
 
