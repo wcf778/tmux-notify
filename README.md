@@ -16,10 +16,28 @@ Intelligent notification tracking for opencode agents. Works with or without tmu
 
 ## Requirements
 
-- opencode with ES module support
-- Optional: tmux (for full tmux sidebar experience)
-- Optional: Ghostty (for native tab title support)
-- macOS: `osascript` for system notifications
+| Package | Version | Required | Description |
+|---------|---------|----------|-------------|
+| **opencode** | any with ES module support | Yes | Main application. Plugin auto-loads from `~/.config/opencode/plugins/` |
+| **tmux** | ≥ 3.0 | No | Full tmux sidebar experience with popups and dedicated panes |
+| **Ghostty** | any | No | Native tab title support (macOS terminal) |
+| **osascript** | built-in (macOS) | Yes* | System notifications (*bundled with macOS) |
+
+### Quick Requirements Check
+
+```bash
+# Required
+opencode --version
+
+# Optional - tmux
+tmux -V
+
+# Optional - Ghostty (macOS)
+ghostty -v 2>/dev/null || echo "Ghostty not installed"
+
+# osascript is built-in on macOS
+osascript -e 'return "ok"' 2>/dev/null && echo "osascript available"
+```
 
 ---
 
