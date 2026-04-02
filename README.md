@@ -359,12 +359,3 @@ tail -f ~/.tmux-plugin-debug.log
 ls ~/.opencode/notifications-*.log
 tail -f ~/.opencode/notifications-*.log
 ```
-
-## Publishing Checklist
-
-- [ ] Test without tmux on fresh system
-- [ ] Test with tmux on fresh system
-- [ ] Test multiple Ghostty windows simultaneously
-- [ ] Update CHANGELOG.md
-- [ ] Tag version (v1.0.0)
-- [ ] Create GitHub release
