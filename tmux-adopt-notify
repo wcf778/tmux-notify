@@ -1,0 +1,54 @@
+#!/bin/bash
+# tmux-adopt-notify - Add notification pane to existing tmux session
+# Usage: tmux-adopt-notify [session-name]
+# This script adds a notification sidebar to your CURRENT tmux session
+# without disrupting your existing workflow
+
+set -e
+
+SESSION_NAME="${1:-$(tmux display-message -p '#{session_name}' 2>/dev/null || echo '')}"
+NOTIFY_SCRIPT="${HOME}/.config/opencode/plugins/examples/notification-viewer.sh"
+
+if [[ -z "$SESSION_NAME" ]]; then
+    echo "Error: Not in a tmux session"
+    echo "Usage: tmux-adopt-notify [session-name]"
+    echo ""
+    echo "Or run from within a tmux session"
+    exit 1
+fi
+
+if [[ ! -f "$NOTIFY_SCRIPT" ]]; then
+    echo "Error: notification-viewer.sh not found"
+    echo "Please ensure tmux-notify plugin is installed"
+    exit 1
+fi
+
+# Get current window
+CURRENT_WINDOW=$(tmux display-message -p '#{window_index}')
+
+# Create notification sidebar in a new pane
+echo "Adding notification pane to session: $SESSION_NAME"
+
+# Split window vertically (creates pane on the right)
+tmux split-window -h -t "${SESSION_NAME}:${CURRENT_WINDOW}"
+
+# Resize to make it a sidebar (adjust width as needed)
+tmux resize-pane -t "${SESSION_NAME}:${CURRENT_WINDOW}.2" -x 50
+
+# Get current directory for the notification viewer
+CURRENT_DIR=$(tmux display-message -p '#{pane_current_path}')
+
+# Run notification viewer in the new pane
+tmux send-keys -t "${SESSION_NAME}:${CURRENT_WINDOW}.2" "cd '$CURRENT_DIR' && $NOTIFY_SCRIPT '$CURRENT_DIR'" Enter
+
+# Switch back to the original pane
+tmux select-pane -t "${SESSION_NAME}:${CURRENT_WINDOW}.1"
+
+echo "✅ Notification pane added!"
+echo ""
+echo "Key bindings:"
+echo "  Ctrl+b + arrow keys  - Navigate between panes"
+echo "  Ctrl+b + z           - Toggle pane zoom"
+echo "  Ctrl+b + x           - Close notification pane"
+echo ""
+echo "To remove later: Ctrl+b + x (in the notification pane)"

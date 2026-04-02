@@ -1,0 +1,14 @@
+# Ghostty Configuration for tmux-notify plugin
+# Add these lines to ~/.config/ghostty/config
+
+# Option A: Run notification viewer in current pane (Cmd+Shift+n)
+# bind = cmd+shift+n !exec ~/.config/opencode/plugins/examples/notification-viewer.sh
+
+# Option B: Split window first, then run notification viewer in new split
+# Create a simple shell wrapper for this:
+bind = cmd+shift+n !exec bash -c '~/.config/opencode/plugins/examples/notification-viewer.sh &'
+
+# Note: Ghostty doesn't have native "split and run command" config yet
+# For best experience, use tmux (dev-workspace) or run manually:
+#   1. Ghostty: Cmd+d to split
+#   2. Type: notification-viewer.sh ~/your-project
