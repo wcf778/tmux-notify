@@ -2,6 +2,10 @@
 
 Intelligent notification tracking for opencode agents. Works with or without tmux.
 
+## Demo
+
+https://github.com/wcf778/tmux-notify/raw/main/demo.mp4
+
 ## Features
 
 - **tmux-optional** - Full functionality with tmux, graceful degradation without
