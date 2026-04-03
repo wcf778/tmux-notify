@@ -4,9 +4,7 @@ Intelligent notification tracking for opencode agents. Works with or without tmu
 
 ## Demo
 
-**[▶ Watch Demo Video](https://github.com/wcf778/tmux-notify/releases/download/v1.0.0/demo.mp4)**
-
-*Or view on the [Releases page](https://github.com/wcf778/tmux-notify/releases/tag/v1.0.0) for embedded playback.*
+![Demo](demo.png)
 
 ## Features
 
