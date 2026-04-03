@@ -6,6 +6,15 @@ Intelligent notification tracking for opencode agents. Works with or without tmu
 
 ![Demo](demo.png)
 
+## Features
+
+- **Per-project notifications** - Each project directory gets its own log file
+- **Smart summarization** - Detects questions, suggestions, actions, and code responses
+- **Rich metadata** - Shows tokens used, tool calls, and duration
+- **macOS notifications** - System notifications via osascript
+- **Session coloring** - Unique color per project for easy identification
+- **tmux-optional** - Full functionality with tmux, graceful degradation without
+
 ## Requirements
 
 | Package | Version | Required | Description |
@@ -71,15 +80,6 @@ bind = cmd+shift+n !exec ~/.config/opencode/plugins/examples/notification-viewer
 ```
 
 </details>
-
-## Features
-
-- **Per-project notifications** - Each project directory gets its own log file
-- **Smart summarization** - Detects questions, suggestions, actions, and code responses
-- **Rich metadata** - Shows tokens used, tool calls, and duration
-- **macOS notifications** - System notifications via osascript
-- **Session coloring** - Unique color per project for easy identification
-- **tmux-optional** - Full functionality with tmux, graceful degradation without
 
 ## Output Format
 
