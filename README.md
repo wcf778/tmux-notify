@@ -4,7 +4,9 @@ Intelligent notification tracking for opencode agents. Works with or without tmu
 
 ## Demo
 
-<video src="demo.mp4" controls></video>
+**Download demo:** [demo.mp4](demo.mp4)
+
+*Right-click and select "Save Link As" to download, or drag the video to a local player.*
 
 ## Features
 
